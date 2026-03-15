@@ -20,6 +20,7 @@ export default class Board extends React.Component {
       inProgress: React.createRef(),
       complete: React.createRef(),
     }
+
   }
   getClients() {
     return [
@@ -54,6 +55,16 @@ export default class Board extends React.Component {
     return (
       <Swimlane name={name} clients={clients} dragulaRef={ref}/>
     );
+    
+  }
+  componentDidMount() {
+    var drake  = Dragula([
+      this.swimlanes.backlog.current,
+      this.swimlanes.inProgress.current,
+      this.swimlanes.complete.current
+      
+    ]);
+   
   }
 
   render() {
@@ -62,13 +73,22 @@ export default class Board extends React.Component {
         <div className="container-fluid">
           <div className="row">
             <div className="col-md-4">
+              
               {this.renderSwimlane('Backlog', this.state.clients.backlog, this.swimlanes.backlog)}
+              
+              
             </div>
             <div className="col-md-4">
+              
               {this.renderSwimlane('In Progress', this.state.clients.inProgress, this.swimlanes.inProgress)}
+              
+              
             </div>
             <div className="col-md-4">
+             
               {this.renderSwimlane('Complete', this.state.clients.complete, this.swimlanes.complete)}
+            
+              
             </div>
           </div>
         </div>
