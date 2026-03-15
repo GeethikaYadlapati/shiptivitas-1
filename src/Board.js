@@ -64,7 +64,27 @@ export default class Board extends React.Component {
       this.swimlanes.complete.current
       
     ]);
-   
+    const AllClients = this.getClients();
+    drake.on('drop', (el, target, source, sibling) => { 
+      drake.cancel(true);
+      const draggedClient = AllClients.find(c => c.id.toString() === el.dataset.id);
+      
+      if (target === this.swimlanes.backlog.current) draggedClient.status = 'backlog';
+      else if (target === this.swimlanes.inProgress.current) draggedClient.status = 'in-progress';
+      else if (target === this.swimlanes.complete.current) draggedClient.status = 'complete';
+      
+
+    const newState = {
+      backlog: AllClients.filter(c => c.status === 'backlog'),
+      inProgress: AllClients.filter(c => c.status === 'in-progress'),
+      complete: AllClients.filter(c => c.status === 'complete'),
+    };
+    
+      this.setState({ clients: newState });
+    });
+
+    
+    
   }
 
   render() {
