@@ -75,9 +75,9 @@ export default class Board extends React.Component {
       
 
     const newState = {
-      backlog: AllClients.filter(c => c.status === 'backlog'),
-      inProgress: AllClients.filter(c => c.status === 'in-progress'),
-      complete: AllClients.filter(c => c.status === 'complete'),
+      backlog: AllClients.filter(c => c.status === 'backlog').sort((a, b) => a.name.localeCompare(b.name)),
+      inProgress: AllClients.filter(c => c.status === 'in-progress').sort((a, b) => a.name.localeCompare(b.name)),
+      complete: AllClients.filter(c => c.status === 'complete').sort((a, b) => a.name.localeCompare(b.name)),
     };
     
       this.setState({ clients: newState });
